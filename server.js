@@ -38,7 +38,6 @@ function register(event) {
         document.getElementById("userPassword").value = "";
         window.location.href = "/login.html";
         alert("registration done");
-
     }
 
 }
