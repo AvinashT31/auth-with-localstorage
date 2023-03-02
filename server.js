@@ -41,3 +41,14 @@ function register(event) {
     }
 
 }
+
+
+function login(event){
+
+    alert('Working');
+    event.preventDefault();   
+
+  
+
+
+}
