@@ -44,11 +44,86 @@ function register(event) {
 
 
 function login(event){
+    event.preventDefault(event);
+    var userEmail =document.getElementById("email").value;
+    var userPassword = document.getElementById("password").value;
 
-    alert('Working');
-    event.preventDefault();   
+    var dataFromLs =JSON.parse(localStorage.getItem("userData"));
 
-  
+    var flag= false;
 
+    for (var i=0 ; i< dataFromLs.length ; i++){
+        if(dataFromLs[i].email === userEmail  && dataFromLs[i].password === userPassword){
+            flag =true;
+        }
+    }
+
+    if(flag){
+        document.getElementById("email").value ="";
+        document.getElementById("password").value ="";
+        window.location.href="/home.html";
+        alert("Login sucessful");
+    }
+    else{
+        alert("Email or Password does not match");
+    }
 
 }
+
+var GettingEmail;
+
+function forgetPassword(){
+    // alert('working');
+
+    var UserEmail = document.getElementById("email").value;
+    GettingEmail = UserEmail;
+
+    var DataFromLS = JSON.parse(localStorage.getItem("userData"));
+   
+
+    var flag = false;
+
+    for(var i =0; i < DataFromLS.length; i++){
+        if(DataFromLS[i].email === UserEmail){
+            flag = true;
+        }
+    }
+
+    if(flag === true){
+       var newCode = `<input type="password" id="password"/><br><button onclick = "newPassword()">Set New Password</button>`
+       var divFromHTML = document.getElementById("change");
+       divFromHTML.innerHTML = newCode;
+       alert(" Now Set new Password")
+    }
+    else{
+        alert("please check your email");
+    }
+  
+}
+
+
+function newPassword(){
+
+    // event.preventDefault();
+    // alert("Worked");
+
+    var userPassword = document.getElementById("password").value;
+    console.log(userPassword, "userPassword");
+    var dataFromLS = JSON.parse(localStorage.getItem("userData"));
+    console.log(dataFromLS, "dataFromLS");
+
+    for(var i=0; i < dataFromLS.length; i++){
+        if(dataFromLS[i].email === GettingEmail){
+            dataFromLS[i].password = userPassword;
+        }
+    }
+    // console.log(dataFromLS, "data");
+
+    localStorage.setItem("userData", JSON.stringify(dataFromLS));
+    GettingEmail = '';
+    window.location.href = "/login.html";
+    alert("password Change Successfully");
+
+}
+
+
