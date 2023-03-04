@@ -11,9 +11,11 @@ function AddProduct(){
 
 
    var DataFromLS = JSON.parse(localStorage.getItem("Data")) || [];
+   document.getElementById("Name").value = '';
+   document.getElementById("Image").value = '';
+   document.getElementById("Price").value = '';
    DataFromLS.push(Data);
    console.log(DataFromLS, "DataFromLS");
-
    localStorage.setItem("Data", JSON.stringify(DataFromLS));
 
 
