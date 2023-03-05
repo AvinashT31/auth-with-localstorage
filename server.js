@@ -61,14 +61,48 @@ function login(event){
     if(flag){
         document.getElementById("email").value ="";
         document.getElementById("password").value ="";
-        window.location.href="/home.html";
+
+        var user = {};
+        user["Current-user-email"] = userEmail;
+        console.log(userEmail, "userEmail")
+        localStorage.setItem("current-user", JSON.stringify(user));
+
+        // window.location.href="/home.html";
         alert("Login sucessful");
     }
-    else{
+    else{ 
         alert("Email or Password does not match");
     }
 
 }
+
+
+// function login(event){
+//     event.preventDefault(event);
+//     var userEmail =document.getElementById("email").value;
+//     var userPassword = document.getElementById("password").value;
+
+//     var dataFromLs =JSON.parse(localStorage.getItem("userData"));
+
+//     var flag= false;
+
+//     for (var i=0 ; i< dataFromLs.length ; i++){
+//         if(dataFromLs[i].email === userEmail  && dataFromLs[i].password === userPassword){
+//             flag =true;
+//         }
+//     }
+
+//     if(flag){
+//         document.getElementById("email").value ="";
+//         document.getElementById("password").value ="";
+//         window.location.href="/home.html";
+//         alert("Login sucessful");
+//     }
+//     else{
+//         alert("Email or Password does not match");
+//     }
+
+// }
 
 var GettingEmail;
 
@@ -84,14 +118,16 @@ function forgetPassword(){
     var flag = false;
 
     for(var i =0; i < DataFromLS.length; i++){
-        if(DataFromLS[i].email === UserEmail){
+        if(DataFromLS[i].email ===  GettingEmail){
             flag = true;
         }
     }
 
     if(flag === true){
-       var newCode = `<input type="password" id="password"/><br><button onclick = "newPassword()">Set New Password</button>`
+       var newCode = `<input type="password" id="password"/><br>
+       <button onclick = "newPassword()">Set New Password</button>`
        var divFromHTML = document.getElementById("change");
+       console.log(newCode, "newCode");
        divFromHTML.innerHTML = newCode;
        alert(" Now Set new Password")
     }
@@ -127,3 +163,25 @@ function newPassword(){
 }
 
 
+// function AddProduct(){
+
+//     alert("working")
+
+//    var ProductName = document.getElementById("Name").value;
+//    var ProductImage = document.getElementById("Image").value;
+//    var ProductPrice = document.getElementById("Price").value;
+
+//    var Data = {Name : ProductName, Image : ProductImage, Price : ProductPrice}
+// //    console.log(Data, "Data");
+
+
+//    var DataFromLS = JSON.parse(localStorage.getItem("Data")) || [];
+//    document.getElementById("Name").value = '';
+//    document.getElementById("Image").value = '';
+//    document.getElementById("Price").value = '';
+//    DataFromLS.push(Data);
+//    console.log(DataFromLS, "DataFromLS");
+//    localStorage.setItem("Data", JSON.stringify(DataFromLS));
+
+
+// }
