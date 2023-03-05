@@ -157,7 +157,7 @@ function newPassword(){
 
     localStorage.setItem("userData", JSON.stringify(dataFromLS));
     GettingEmail = '';
-    window.location.href = "/login.html";
+        window.location.href = "/login.html";
     alert("password Change Successfully");
 
 }
