@@ -19,5 +19,4 @@ function AddProduct(){
    console.log(DataFromLS, "DataFromLS");
    localStorage.setItem("Data", JSON.stringify(DataFromLS));
 
-
 }

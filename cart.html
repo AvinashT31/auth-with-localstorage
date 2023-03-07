@@ -1,23 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
 </head>
+
 <body>
     <h1>Cart</h1>
 
+    <div id="cartProducts" >
+
+    </div>
+    <button onclick="buyProducts()">Click Here</button>
+
 
     <script>
-        window.onload = function(){
-              var DataFromLS = JSON.parse(localStorage.getItem("current-user"));
-              if(!DataFromLS){
+
+        window.onload = function () {
+            var DataFromLS = JSON.parse(localStorage.getItem("current-user"));
+            if (!DataFromLS) {
                 window.location.href = "/login.html";
                 alert("Cant access cart without login,please login first");
-            } 
+            }
+            else{
+                var DataFromLS = JSON.parse(localStorage.getItem("userData"));
+                var currentUser = JSON.parse(localStorage.getItem("current-user"));
+                var divFromHtml = document.getElementById("cartProducts");
+                var cartProducts;
+
+                var flag = false;
+                for(var i=0; i < DataFromLS.length; i++){
+                    if(DataFromLS[i].email === currentUser["Current-user-email"] && DataFromLS[i].cartProducts){
+                        cartProducts = DataFromLS[i].cartProducts;
+                        flag = true;
+                    }
+                }
+                if(flag===faslse){
+                    alert("No product added into cart")
+                }
+                else{
+                    console.log(cartProducts, "cartProducts");
+                    var productWithHTML = [];
+                    for(var i=0; i < cartProducts.length; i++){
+                        productWithHTML += `<div><img src = "${cartProducts[i].image}"></img><h1>${cartProducts[i].Name}</h1><p>${cartProducts[i].Price}</p></div>`
+                    }
+                    divFromHtml.innerHTML = productWithHTML;
+                }
+            }
         }
+
+        function buyProducts(){
+            var DataFromLS = JSON.parse(localStorage.getItem("userData"));
+                var currentUser = JSON.parse(localStorage.getItem("current-user"));
+                var updatedUser = [];
+
+                for(var i=0; i < DataFromLS.length; i++){
+                    if(DataFromLS[i].email === currentUser["Current-user-email"] && DataFromLS[i].cartProducts){
+                       DataFromLS[i].cartProducts = [];
+                       updatedUser.push(DataFromLS[i]);
+                    }
+                    else{
+                        updatedUser.push(DataFromLS[i]);
+                    }
+                }
+                localStorage.setItem("userData", JSON.stringify(updatedUser));
+                window.location.href = "/home.html"
+                alert("product delivered soon");
+
+        }
+        // window.onload = function(){
+        //       var DataFromLS = JSON.parse(localStorage.getItem("current-user"));
+        //       if(!DataFromLS){
+        //         window.location.href = "/login.html";
+        //         alert("Cant access cart without login,please login first");
+        //     }
+        // }
     </script>
 </body>
+
 </html>
